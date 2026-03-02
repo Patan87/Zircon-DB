@@ -165,18 +165,34 @@ function buildGrid() {
         const folderName = pngPath.split('/')[0];
         const fileName = pngPath.split('/').pop();
 
-        // 1. KATEGORIE-FILTER
-        let isMatch = false;
-        if (currentCategory === 'monsters' && (folderName.startsWith('Mon-') || fileName.startsWith('Mon-'))) isMatch = true;
-        else if (currentCategory === 'weapons' && (folderName.includes('Weapon') || fileName.includes('Weap'))) isMatch = true;
-        else if (currentCategory === 'armours' && folderName.includes('Armour')) isMatch = true;
-        else if (currentCategory === 'mounts' && folderName.includes('Mount')) isMatch = true;
-        if (!isMatch) return;
+        // 1. KATEGORIE-FILTER (Maximale Erkennung)
+let isMatch = false;
+const folderLower = folderName.toLowerCase();
+const fileLower = fileName.toLowerCase();
+
+if (currentCategory === 'monsters') {
+    if (folderLower.includes('mon-') || fileLower.includes('mon-')) isMatch = true;
+} 
+else if (currentCategory === 'weapons') {
+    if (folderLower.includes('weapon') || folderLower.includes('weap')) isMatch = true;
+} 
+else if (currentCategory === 'armours') {
+    // Wir suchen nach "m-hum", egal ob am Anfang oder mittendrin
+    if (folderLower.includes('m-hum') || folderLower.includes('humex') || folderLower.includes('humacx')) isMatch = true;
+} 
+else if (currentCategory === 'mounts') {
+    // Hier prüfen wir auf "horse" und "mount"
+    if (folderLower.includes('horse') || folderLower.includes('mount')) isMatch = true;
+}
+
+if (!isMatch) return;
 
         let mData = { png: pngPath, webp: webpPath, name: "", slot: 0, status: "active", png2: null, webp2: null };
 
         const monMatch = fileName.match(/Mon-(\d+)_M(\d+)/);
         const shapeMatch = fileName.match(/SH_(\d+)/);
+        // Mount-Regex für verschiedene Schreibweisen
+        const mountMatch = fileName.match(/(?:Horse|Mount)_?(\d+)?_Mount(\d+)/i);
 
         if (monMatch) {
             mData.slot = parseInt(monMatch[2]);
@@ -184,12 +200,16 @@ function buildGrid() {
             mData.name = idToNameMap[idKey] || `Mon ${monMatch[1]} (S${mData.slot})`;
             mData.status = mData.name.startsWith("//") ? "commented" : (idToNameMap[idKey] ? "active" : "missing");
         } 
+        else if (mountMatch) {
+            const horseNr = mountMatch[1] || "X";
+            mData.slot = parseInt(mountMatch[2]);
+            mData.name = `Mount ${horseNr} (Slot ${mData.slot})`;
+        }
         else if (shapeMatch) {
             const shapeId = shapeMatch[1];
             mData.slot = parseInt(shapeId);
             mData.name = `Shape: ${shapeId}`;
 
-            // DUAL-WIELD LOGIK (Pairing von ADL und ADR)
             if (currentCategory === 'weapons' && (folderName.includes('ADL') || folderName.includes('ADR'))) {
                 const isLeft = folderName.includes('ADL');
                 const partnerFolder = isLeft ? folderName.replace('ADL', 'ADR') : folderName.replace('ADR', 'ADL');
@@ -212,13 +232,14 @@ function buildGrid() {
 
         if (term && !mData.name.toLowerCase().includes(term) && !folderName.toLowerCase().includes(term)) return;
 
-        // --- ORDNER-ZUSAMMENFASSUNG ---
+        // --- GRUPPIERUNG ---
         let displayGroupName = folderName;
-        if (folderName.includes('WeaponADL') || folderName.includes('WeaponADR')) {
-            // Extrahiert die Nummer (z.B. "1" aus ADL1)
+        if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {
             const nrMatch = folderName.match(/\d+$/);
-            const setNr = nrMatch ? nrMatch[0] : "";
-            displayGroupName = `⚔️ M-Weapon ADR/ADL: ${setNr}`;
+            displayGroupName = `⚔️ M-Weapon ADR/ADL: ${nrMatch ? nrMatch[0] : ""}`;
+        }
+        else if (folderLower.includes('horse') || folderLower.includes('mount')) {
+            displayGroupName = `🐎 Mounts: ${folderName}`;
         }
 
         if (!groups[displayGroupName]) groups[displayGroupName] = [];

@@ -83,7 +83,24 @@
     border-color: #4a90e2;
     color: #fff;
 }
+.armor-set-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 15px;
+    border-radius: 8px;
+}
 
+.gender-label {
+    font-size: 0.8em;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    border-left: 3px solid #4a90e2;
+    padding-left: 10px;
+}
 .nav-btn.active {
     background: #4a90e2;
     border-color: #4a90e2;
@@ -164,34 +181,41 @@ function buildGrid() {
         const [pngPath, webpPath] = entry.split('|');
         const folderName = pngPath.split('/')[0];
         const fileName = pngPath.split('/').pop();
+        const folderLower = folderName.toLowerCase();
+        const fileLower = fileName.toLowerCase();
 
-        // 1. KATEGORIE-FILTER (Maximale Erkennung)
-let isMatch = false;
-const folderLower = folderName.toLowerCase();
-const fileLower = fileName.toLowerCase();
+        // 1. KATEGORIE-FILTER
+        let isMatch = false;
+        if (currentCategory === 'monsters') {
+            if (folderLower.includes('mon-') || fileLower.includes('mon-')) isMatch = true;
+        } 
+        else if (currentCategory === 'weapons') {
+            if (folderLower.includes('weapon') || folderLower.includes('weap')) isMatch = true;
+        } 
+        else if (currentCategory === 'armours') {
+            // Erkennt M-HUM, W-HUM, HUMAEX etc.
+            if (folderLower.includes('hum')) isMatch = true;
+        } 
+        else if (currentCategory === 'mounts') {
+            if (folderLower.includes('horse') || folderLower.includes('mount')) isMatch = true;
+        }
 
-if (currentCategory === 'monsters') {
-    if (folderLower.includes('mon-') || fileLower.includes('mon-')) isMatch = true;
-} 
-else if (currentCategory === 'weapons') {
-    if (folderLower.includes('weapon') || folderLower.includes('weap')) isMatch = true;
-} 
-else if (currentCategory === 'armours') {
-    // Wir suchen nach "m-hum", egal ob am Anfang oder mittendrin
-    if (folderLower.includes('m-hum') || folderLower.includes('humex') || folderLower.includes('humacx')) isMatch = true;
-} 
-else if (currentCategory === 'mounts') {
-    // Hier prüfen wir auf "horse" und "mount"
-    if (folderLower.includes('horse') || folderLower.includes('mount')) isMatch = true;
-}
+        if (!isMatch) return;
 
-if (!isMatch) return;
-
-        let mData = { png: pngPath, webp: webpPath, name: "", slot: 0, status: "active", png2: null, webp2: null };
+        // mData Struktur vorbereiten (inkl. folder für die spätere M/W Trennung)
+        let mData = { 
+            png: pngPath, 
+            webp: webpPath, 
+            name: "", 
+            slot: 0, 
+            status: "active", 
+            png2: null, 
+            webp2: null,
+            folder: folderName 
+        };
 
         const monMatch = fileName.match(/Mon-(\d+)_M(\d+)/);
         const shapeMatch = fileName.match(/SH_(\d+)/);
-        // Mount-Regex für verschiedene Schreibweisen
         const mountMatch = fileName.match(/(?:Horse|Mount)_?(\d+)?_Mount(\d+)/i);
 
         if (monMatch) {
@@ -210,6 +234,7 @@ if (!isMatch) return;
             mData.slot = parseInt(shapeId);
             mData.name = `Shape: ${shapeId}`;
 
+            // Dual-Wield Logik für Waffen
             if (currentCategory === 'weapons' && (folderName.includes('ADL') || folderName.includes('ADR'))) {
                 const isLeft = folderName.includes('ADL');
                 const partnerFolder = isLeft ? folderName.replace('ADL', 'ADR') : folderName.replace('ADR', 'ADL');
@@ -232,9 +257,14 @@ if (!isMatch) return;
 
         if (term && !mData.name.toLowerCase().includes(term) && !folderName.toLowerCase().includes(term)) return;
 
-        // --- GRUPPIERUNG ---
+        // --- GRUPPIERUNG (Hier passiert die Magie) ---
         let displayGroupName = folderName;
-        if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {
+
+        if (currentCategory === 'armours') {
+    // Entfernt M-, W- oder WM- am Anfang für die Gruppen-Überschrift
+    displayGroupName = folderName.replace(/^(M|W|WM)-/i, '').toUpperCase();
+}
+        else if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {
             const nrMatch = folderName.match(/\d+$/);
             displayGroupName = `⚔️ M-Weapon ADR/ADL: ${nrMatch ? nrMatch[0] : ""}`;
         }
@@ -246,6 +276,7 @@ if (!isMatch) return;
         groups[displayGroupName].push(mData);
         processedPaths.add(entry);
     });
+
     renderGroups(groups);
 }
 
@@ -259,49 +290,67 @@ function renderGroups(groups) {
     }
 
     sortedFolders.forEach(folder => {
-        html += `
-            <div class="folder-section">
-                <h2 class="folder-header">📂 ${folder}</h2>
-                <div class="grid">
-                    ${groups[folder].map(m => {
-                        let color = "#e74c3c"; 
-                        if (m.status === "active") color = "#4a90e2";
-                        if (m.status === "commented") color = "#f1c40f";
-                        
-                        // NEU: Logik für Dual-Wield Bilder
-                        let imageContent = "";
-                        if (m.png2) {
-                            // Wenn ein Partner-Bild da ist: Zwei Bilder nebeneinander
-                            imageContent = `
-                                <div style="display: flex; gap: 4px; justify-content: center; align-items: center; height: 100px;">
-                                    <img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'" style="width: 48%; object-fit: contain;" title="Links (ADL)">
-                                    <img src="${m.png2}" onmouseenter="this.src='${m.webp2}'" onmouseleave="this.src='${m.png2}'" style="width: 48%; object-fit: contain;" title="Rechts (ADR)">
-                                </div>
-                            `;
-                        } else {
-                            // Standard: Ein einzelnes Bild
-                            imageContent = `<img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'">`;
-                        }
+        html += `<div class="folder-section"><h2 class="folder-header">📂 ${folder}</h2>`;
 
-                        return `
-                            <div class="card" data-search="${m.name.toLowerCase()}">
-                                ${imageContent}
-                                <div class="info">
-                                    <b style="color: ${color}; ${m.status === 'commented' ? 'font-style: italic;' : ''}">
-                                        ${m.name} <span class="slot-tag">(${m.slot})</span>
-                                    </b>
-                                </div>
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
+        // SPEZIAL-LOGIK FÜR ARMOURS: Männlich und Weiblich getrennt untereinander
+        if (currentCategory === 'armours') {
+            const maleItems = groups[folder].filter(item => 
+    item.folder.toUpperCase().startsWith('M-')
+).sort((a, b) => a.slot - b.slot);
+
+// Filtert jetzt W- ODER WM- (Female)
+const femaleItems = groups[folder].filter(item => 
+    item.folder.toUpperCase().startsWith('W-') || item.folder.toUpperCase().startsWith('WM-')
+).sort((a, b) => a.slot - b.slot);
+
+            html += `
+                <div class="armor-set-container">
+                    <div class="gender-label">(Male)</div>
+                    <div class="grid">${maleItems.map(m => renderCardHTML(m)).join('')}</div>
+                    
+                    <div class="gender-label" style="margin-top:20px;">(Female)</div>
+                    <div class="grid">${femaleItems.map(m => renderCardHTML(m)).join('')}</div>
+                </div>`;
+        } else {
+            // STANDARD-LOGIK für Monster, Waffen, Mounts
+            html += `<div class="grid">
+                ${groups[folder].sort((a, b) => a.slot - b.slot).map(m => renderCardHTML(m)).join('')}
             </div>`;
+        }
+        html += `</div>`;
     });
+
     container.innerHTML = html;
-    
-    // Counter aktualisieren (zählt Paare als 1 Eintrag)
     const totalCount = Object.values(groups).flat().length;
     document.getElementById('counter').innerText = `${totalCount} Einträge gefunden`;
+}
+
+// Hilfsfunktion, damit wir den Card-Code nicht doppelt schreiben müssen
+function renderCardHTML(m) {
+    let color = "#e74c3c"; 
+    if (m.status === "active") color = "#4a90e2";
+    if (m.status === "commented") color = "#f1c40f";
+
+    let imageContent = "";
+    if (m.png2) {
+        imageContent = `
+            <div style="display: flex; gap: 4px; justify-content: center; align-items: center; height: 100px;">
+                <img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'" style="width: 48%; object-fit: contain;" title="Links (ADL)">
+                <img src="${m.png2}" onmouseenter="this.src='${m.webp2}'" onmouseleave="this.src='${m.png2}'" style="width: 48%; object-fit: contain;" title="Rechts (ADR)">
+            </div>`;
+    } else {
+        imageContent = `<img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'">`;
+    }
+
+    return `
+        <div class="card" data-search="${m.name.toLowerCase()}">
+            ${imageContent}
+            <div class="info">
+                <b style="color: ${color}; ${m.status === 'commented' ? 'font-style: italic;' : ''}">
+                    ${m.name} <span class="slot-tag">(${m.slot})</span>
+                </b>
+            </div>
+        </div>`;
 }
 
 // Filterfunktion für die Suche

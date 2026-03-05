@@ -17,12 +17,13 @@
         .folder-section { margin-bottom: 40px; }
         .folder-header { color: #4a90e2; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 30px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
-            gap: 12px; 
-            margin-top: 15px;
-        }
+       .grid { 
+    display: grid; 
+    /* Standard wieder auf 130px setzen */
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+    gap: 12px; 
+    margin-top: 15px;
+}
         .dual-wield-container {
     display: flex;
     justify-content: space-around;
@@ -33,31 +34,58 @@
     width: 48% !important; /* Zwei Bilder nebeneinander */
     height: 80px !important;
 }
-        .card { 
-            background: #1e1e1e; 
-            border-radius: 6px; 
-            padding: 8px; 
-            text-align: center; 
-            transition: all 0.2s ease;
-            border: 1px solid #333;
-            overflow: hidden;
-            cursor: pointer;
-        }
+       .card { 
+    background: #1e1e1e; 
+    border-radius: 4px; /* Kleinerer Radius */
+    padding: 5px; /* Weniger Padding */
+    text-align: center; 
+    transition: all 0.2s ease;
+    border: 1px solid #333;
+    overflow: hidden;
+    cursor: pointer;
+}
 
-        .card img { 
-            width: 100%; 
-            height: 100px; 
-            object-fit: contain; 
-            filter: saturate(0.9);
-            transition: transform 0.2s;
-        }
+.card img { 
+    width: 100%; 
+    height: 100px; /* Standard-Höhe für Monster/Rüstungen */
+    object-fit: contain; 
+    filter: saturate(0.9);
+    transition: transform 0.2s;
+    image-rendering: pixelated;
+}
 
-        .card:hover { 
-            border-color: #4a90e2; 
-            background: #252525; 
-            transform: scale(1.05);
-            z-index: 10;
-        }
+/* 2. SPEZIAL-REGEL (Klein) - Nur wenn die Kategorie 'helmets' aktiv ist */
+/* WICHTIG: .grid.category-helmets ohne Leerzeichen schreiben! */
+#container.category-helmets .grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important;
+    gap: 8px !important;
+}
+
+#container.category-helmets .card img {
+    height: 60px !important;
+    width: auto !important;
+    /* Scharfe Kanten für alle Browser */
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    image-rendering: pixelated;       /* Chrome / Edge / Safari */
+    
+    /* TRICK: Verhindert, dass der Browser die Bilder beim Skalieren glättet */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+}
+
+#container.category-helmets .card-title {
+    font-size: 10px;
+}
+
+.card:hover { 
+    border-color: #4a90e2; 
+    background: #252525; 
+    /* TRICK: Nutze ganzzahlige Skalierung oder bleib bei 1.1, 
+       aber achte darauf, dass das Bild im Hover nicht "matschig" wird */
+    transform: scale(1.1); 
+    z-index: 10;
+}
+
         .category-nav {
     display: flex;
     gap: 12px;           
@@ -126,12 +154,17 @@
     <h1>Zircon  DB</h1>
     
     <div class="category-nav">
-        <button class="nav-btn active" onclick="switchCategory('monsters', this)">Monster</button>
-        <button class="nav-btn" onclick="switchCategory('armours', this)">Armours</button>
-        <button class="nav-btn" onclick="switchCategory('weapons', this)">Weapons</button>
-        <button class="nav-btn" onclick="switchCategory('mounts', this)">Mounts</button>
-        
-    </div>
+    <button class="nav-btn active" onclick="switchCategory('monsters', this)">Monster</button>
+    <button class="nav-btn" onclick="switchCategory('armours', this)">Armours</button>
+    <button class="nav-btn" onclick="switchCategory('weapons', this)">Weapons</button>
+    <button class="nav-btn" onclick="switchCategory('costumes', this)">Costumes</button> 
+    <button class="nav-btn" onclick="switchCategory('mounts', this)">Mounts</button>
+    
+    <button class="nav-btn" onclick="switchCategory('helmets', this)">Helmets</button>
+    <button class="nav-btn" onclick="switchCategory('shields', this)">Shields</button>
+    <button class="nav-btn" onclick="switchCategory('auras', this)">Auras/Wings</button>
+    <button class="nav-btn" onclick="switchCategory('maps', this)">Maps</button>
+</div>
 
     <input type="text" id="search" placeholder="Suche nach Monster oder Ordner (z.B. Mon-1)..." onkeyup="filter()">
     <div id="counter" class="stats"></div>
@@ -142,7 +175,7 @@
     <script>
         const container = document.getElementById('container');
 let idToNameMap = {};
-let currentCategory = 'monsters'; // Standardmäßig Monster zeigen
+let currentCategory = 'monsters';
 
 function init() {
     if (typeof monsterNamesData !== 'undefined') {
@@ -157,15 +190,11 @@ function init() {
     buildGrid();
 }
 
-// NEU: Funktion zum Umschalten der Tabs
 function switchCategory(category, btn) {
     currentCategory = category;
-    
-    // Buttons optisch umschalten
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    
-    buildGrid(); // Grid neu aufbauen mit Filter
+    buildGrid();
 }
 
 function buildGrid() {
@@ -193,16 +222,27 @@ function buildGrid() {
             if (folderLower.includes('weapon') || folderLower.includes('weap')) isMatch = true;
         } 
         else if (currentCategory === 'armours') {
-            // Erkennt M-HUM, W-HUM, HUMAEX etc.
             if (folderLower.includes('hum')) isMatch = true;
         } 
+        else if (currentCategory === 'costumes') {
+            if (folderLower.includes('costume')) isMatch = true;
+        }
         else if (currentCategory === 'mounts') {
             if (folderLower.includes('horse') || folderLower.includes('mount')) isMatch = true;
+        }
+        else if (currentCategory === 'helmets') {
+            if (folderLower.includes('helmet')) isMatch = true;
+        }
+        else if (currentCategory === 'shields') {
+            if (folderLower.includes('shield')) isMatch = true;
+        }
+        else if (currentCategory === 'maps') {
+            if (folderLower.includes('minimaps')) isMatch = true;
         }
 
         if (!isMatch) return;
 
-        // mData Struktur vorbereiten (inkl. folder für die spätere M/W Trennung)
+        // mData Struktur vorbereiten
         let mData = { 
             png: pngPath, 
             webp: webpPath, 
@@ -211,14 +251,26 @@ function buildGrid() {
             status: "active", 
             png2: null, 
             webp2: null,
-            folder: folderName 
+            folder: folderName,
+            fileName: "" 
         };
 
         const monMatch = fileName.match(/Mon-(\d+)_M(\d+)/);
-        const shapeMatch = fileName.match(/SH_(\d+)/);
         const mountMatch = fileName.match(/(?:Horse|Mount)_?(\d+)?_Mount(\d+)/i);
+        const shapeMatch = fileName.match(/SH_(\d+)/);
 
-        if (monMatch) {
+        if (currentCategory === 'maps') {
+            const cleanFileName = fileName.replace(/\.(png|webp)$/i, '');
+            const parts = cleanFileName.split(' ');
+            if (parts.length >= 3) {
+                mData.slot = parseInt(parts[parts.length - 1]); 
+                mData.name = parts.slice(1, -1).join(' '); 
+                mData.fileName = parts[0]; 
+            } else {
+                mData.name = cleanFileName;
+            }
+        } 
+        else if (monMatch) {
             mData.slot = parseInt(monMatch[2]);
             const idKey = monMatch[1] + monMatch[2];
             mData.name = idToNameMap[idKey] || `Mon ${monMatch[1]} (S${mData.slot})`;
@@ -234,20 +286,14 @@ function buildGrid() {
             mData.slot = parseInt(shapeId);
             mData.name = `Shape: ${shapeId}`;
 
-            // Dual-Wield Logik für Waffen
-            if (currentCategory === 'weapons' && (folderName.includes('ADL') || folderName.includes('ADR'))) {
+            if (currentCategory === 'weapons' && (folderLower.includes('weaponadl') || folderLower.includes('weaponadr'))) {
                 const isLeft = folderName.includes('ADL');
                 const partnerFolder = isLeft ? folderName.replace('ADL', 'ADR') : folderName.replace('ADR', 'ADL');
                 const partnerEntry = mobList.find(e => e.includes(partnerFolder) && e.includes(`SH_${shapeId}_`));
-
                 if (partnerEntry) {
                     const [pPng, pWebp] = partnerEntry.split('|');
-                    if (isLeft) {
-                        mData.png2 = pPng; mData.webp2 = pWebp;
-                    } else {
-                        mData.png = pPng; mData.webp = pWebp;
-                        mData.png2 = pngPath; mData.webp2 = webpPath;
-                    }
+                    if (isLeft) { mData.png2 = pPng; mData.webp2 = pWebp; } 
+                    else { mData.png = pPng; mData.webp = pWebp; mData.png2 = pngPath; mData.webp2 = webpPath; }
                     processedPaths.add(partnerEntry);
                 }
             }
@@ -257,18 +303,15 @@ function buildGrid() {
 
         if (term && !mData.name.toLowerCase().includes(term) && !folderName.toLowerCase().includes(term)) return;
 
-        // --- GRUPPIERUNG (Hier passiert die Magie) ---
         let displayGroupName = folderName;
-
-        if (currentCategory === 'armours') {
-    // Entfernt M-, W- oder WM- am Anfang für die Gruppen-Überschrift
-    displayGroupName = folderName.replace(/^(M|W|WM)-/i, '').toUpperCase();
-}
-        else if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {
+        if (currentCategory === 'maps') {
+            displayGroupName = "🗺️ World Minimaps";
+        } else if (currentCategory === 'armours' || currentCategory === 'costumes') {
+            displayGroupName = folderName.replace(/^(M|W|WM)-/i, '').toUpperCase();
+        } else if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {
             const nrMatch = folderName.match(/\d+$/);
             displayGroupName = `⚔️ M-Weapon ADR/ADL: ${nrMatch ? nrMatch[0] : ""}`;
-        }
-        else if (folderLower.includes('horse') || folderLower.includes('mount')) {
+        } else if (folderLower.includes('horse') || folderLower.includes('mount')) {
             displayGroupName = `🐎 Mounts: ${folderName}`;
         }
 
@@ -278,6 +321,7 @@ function buildGrid() {
     });
 
     renderGroups(groups);
+    container.className = 'category-' + currentCategory;
 }
 
 function renderGroups(groups) {
@@ -285,37 +329,36 @@ function renderGroups(groups) {
     const sortedFolders = Object.keys(groups).sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
 
     if (sortedFolders.length === 0) {
-        container.innerHTML = "<div style='text-align:center; padding: 50px;'>Keine Einträge in dieser Kategorie gefunden.</div>";
+        container.innerHTML = "<div style='text-align:center; padding: 50px;'>Keine Einträge gefunden.</div>";
         return;
     }
 
     sortedFolders.forEach(folder => {
         html += `<div class="folder-section"><h2 class="folder-header">📂 ${folder}</h2>`;
-
-        // SPEZIAL-LOGIK FÜR ARMOURS: Männlich und Weiblich getrennt untereinander
-        if (currentCategory === 'armours') {
-            const maleItems = groups[folder].filter(item => 
-    item.folder.toUpperCase().startsWith('M-')
-).sort((a, b) => a.slot - b.slot);
-
-// Filtert jetzt W- ODER WM- (Female)
-const femaleItems = groups[folder].filter(item => 
-    item.folder.toUpperCase().startsWith('W-') || item.folder.toUpperCase().startsWith('WM-')
-).sort((a, b) => a.slot - b.slot);
-
-            html += `
-                <div class="armor-set-container">
-                    <div class="gender-label">(Male)</div>
-                    <div class="grid">${maleItems.map(m => renderCardHTML(m)).join('')}</div>
-                    
-                    <div class="gender-label" style="margin-top:20px;">(Female)</div>
-                    <div class="grid">${femaleItems.map(m => renderCardHTML(m)).join('')}</div>
-                </div>`;
+        
+        if (currentCategory === 'armours' || currentCategory === 'costumes') {
+            const maleItems = groups[folder].filter(item => item.folder.toUpperCase().startsWith('M-')).sort((a, b) => a.slot - b.slot);
+            const femaleItems = groups[folder].filter(item => item.folder.toUpperCase().startsWith('W-') || item.folder.toUpperCase().startsWith('WM-')).sort((a, b) => a.slot - b.slot);
+            html += `<div class="armor-set-container">
+                        <div class="gender-label">(Male)</div>
+                        <div class="grid">${maleItems.map(m => renderCardHTML(m)).join('')}</div>
+                        <div class="gender-label" style="margin-top:20px;">(Female)</div>
+                        <div class="grid">${femaleItems.map(m => renderCardHTML(m)).join('')}</div>
+                    </div>`;
         } else {
-            // STANDARD-LOGIK für Monster, Waffen, Mounts
-            html += `<div class="grid">
-                ${groups[folder].sort((a, b) => a.slot - b.slot).map(m => renderCardHTML(m)).join('')}
-            </div>`;
+            // HIER die Sortierung: Benannte Maps nach vorne, unbenannte nach hinten
+            const sortedItems = [...groups[folder]].sort((a, b) => {
+                if (currentCategory === 'maps') {
+                    const aHasData = a.fileName && a.fileName !== "";
+                    const bHasData = b.fileName && b.fileName !== "";
+                    
+                    if (aHasData && !bHasData) return -1;
+                    if (!aHasData && bHasData) return 1;
+                }
+                return a.slot - b.slot;
+            });
+
+            html += `<div class="grid">${sortedItems.map(m => renderCardHTML(m)).join('')}</div>`;
         }
         html += `</div>`;
     });
@@ -325,40 +368,78 @@ const femaleItems = groups[folder].filter(item =>
     document.getElementById('counter').innerText = `${totalCount} Einträge gefunden`;
 }
 
-// Hilfsfunktion, damit wir den Card-Code nicht doppelt schreiben müssen
 function renderCardHTML(m) {
     let color = "#e74c3c"; 
     if (m.status === "active") color = "#4a90e2";
     if (m.status === "commented") color = "#f1c40f";
 
+    const isMap = currentCategory === 'maps';
+    const clickAttr = isMap ? `onclick="openMapZoom('${m.png}')"` : "";
+    
+    // Maps kriegen einen Zoom-Cursor und schwarzen Hintergrund
+    const imgStyle = isMap ? 'height: 120px; width: 120px; background: #000; cursor: zoom-in;' : '';
+
     let imageContent = "";
     if (m.png2) {
+        // Dual-Wield (Waffen)
         imageContent = `
             <div style="display: flex; gap: 4px; justify-content: center; align-items: center; height: 100px;">
-                <img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'" style="width: 48%; object-fit: contain;" title="Links (ADL)">
-                <img src="${m.png2}" onmouseenter="this.src='${m.webp2}'" onmouseleave="this.src='${m.png2}'" style="width: 48%; object-fit: contain;" title="Rechts (ADR)">
+                <img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'" style="width: 48%; object-fit: contain;">
+                <img src="${m.png2}" onmouseenter="this.src='${m.webp2}'" onmouseleave="this.src='${m.png2}'" style="width: 48%; object-fit: contain;">
             </div>`;
     } else {
-        imageContent = `<img src="${m.png}" onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'">`;
+        // Normaler Fall: Mouseover nur wenn es KEINE Map ist (da keine WebPs für Maps da sind)
+        const mouseEvents = !isMap ? `onmouseenter="this.src='${m.webp}'" onmouseleave="this.src='${m.png}'"` : "";
+        imageContent = `<img src="${m.png}" ${mouseEvents} style="${imgStyle}">`;
     }
 
+    const subInfo = (isMap && m.fileName) 
+        ? `<br><span style="color: #666; font-size: 0.85em;">File: ${m.fileName}</span>` 
+        : "";
+
+    // Falls die Map keinen Namen/File hat, machen wir sie etwas blasser
+    const opacityStyle = (isMap && !m.fileName) ? "opacity: 0.6;" : "";
+
     return `
-        <div class="card" data-search="${m.name.toLowerCase()}">
+        <div class="card" ${clickAttr} style="${opacityStyle}">
             ${imageContent}
             <div class="info">
                 <b style="color: ${color}; ${m.status === 'commented' ? 'font-style: italic;' : ''}">
                     ${m.name} <span class="slot-tag">(${m.slot})</span>
+                    ${subInfo}
                 </b>
             </div>
         </div>`;
 }
 
-// Filterfunktion für die Suche
 function filter() {
-    buildGrid(); // Wir bauen das Grid einfach neu auf, das ist bei der Menge am saubersten
+    buildGrid();
 }
 
 init();
+// Overlay für Map-Vergrößerung
+const lightbox = document.createElement('div');
+lightbox.id = 'map-lightbox';
+lightbox.style = "display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; cursor:zoom-out;";
+lightbox.onclick = () => lightbox.style.display = 'none';
+document.body.appendChild(lightbox);
+
+function openMapZoom(src) {
+    // Wir nehmen 95% der Bildschirmhöhe (vh), damit oben/unten ein kleiner Rand bleibt
+    // max-width setzen wir auf 98%, damit es auch in der Breite fast alles nutzt
+    lightbox.innerHTML = `
+        <img src="${src}" style="
+            height: 95vh; 
+            width: auto; 
+            max-width: 98vw; 
+            object-fit: contain; 
+            border: 2px solid #4a90e2; 
+            box-shadow: 0 0 50px #000; 
+            cursor: default;" 
+            onclick="event.stopPropagation();">`;
+    
+    lightbox.style.display = 'flex';
+}
     </script>
 </body>
 </html>

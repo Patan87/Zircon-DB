@@ -163,6 +163,7 @@
     <button class="nav-btn" onclick="switchCategory('helmets', this)">Helmets</button>
     <button class="nav-btn" onclick="switchCategory('shields', this)">Shields</button>
     <button class="nav-btn" onclick="switchCategory('auras', this)">Auras/Wings</button>
+    <button class="nav-btn" onclick="switchCategory('npcs', this)">NPCs</button>
     <button class="nav-btn" onclick="switchCategory('maps', this)">Maps</button>
 </div>
 
@@ -213,11 +214,14 @@ function buildGrid() {
         const folderLower = folderName.toLowerCase();
         const fileLower = fileName.toLowerCase();
 
-        // 1. KATEGORIE-FILTER
+        // 1. KATEGORIE-FILTER (Inklusive NPCs)
         let isMatch = false;
         if (currentCategory === 'monsters') {
             if (folderLower.includes('mon-') || fileLower.includes('mon-')) isMatch = true;
         } 
+        else if (currentCategory === 'npcs') {
+            if (folderLower.includes('npc')) isMatch = true;
+        }
         else if (currentCategory === 'weapons') {
             if (folderLower.includes('weapon') || folderLower.includes('weap')) isMatch = true;
         } 
@@ -242,7 +246,6 @@ function buildGrid() {
 
         if (!isMatch) return;
 
-        // mData Struktur vorbereiten
         let mData = { 
             png: pngPath, 
             webp: webpPath, 
@@ -258,6 +261,7 @@ function buildGrid() {
         const monMatch = fileName.match(/Mon-(\d+)_M(\d+)/);
         const mountMatch = fileName.match(/(?:Horse|Mount)_?(\d+)?_Mount(\d+)/i);
         const shapeMatch = fileName.match(/SH_(\d+)/);
+        const npcMatch = currentCategory === 'npcs' ? fileName.match(/(\d+)/) : null;
 
         if (currentCategory === 'maps') {
             const cleanFileName = fileName.replace(/\.(png|webp)$/i, '');
@@ -270,6 +274,12 @@ function buildGrid() {
                 mData.name = cleanFileName;
             }
         } 
+        else if (currentCategory === 'npcs' && npcMatch) {
+            // Hier passiert die Magie für die NPCs
+            let rawSlot = parseInt(npcMatch[0]);
+            mData.slot = rawSlot / 100; // Macht aus 1100 -> 11
+            mData.name = "NPC " + mData.slot;
+        }
         else if (monMatch) {
             mData.slot = parseInt(monMatch[2]);
             const idKey = monMatch[1] + monMatch[2];
@@ -298,6 +308,8 @@ function buildGrid() {
                 }
             }
         } else {
+            // Logik für NPCs und allgemeine Dateien
+            if (npcMatch) mData.slot = parseInt(npcMatch[0]);
             mData.name = fileName.replace('_Stand.png', '').replace(/_/g, ' ');
         }
 
@@ -306,6 +318,8 @@ function buildGrid() {
         let displayGroupName = folderName;
         if (currentCategory === 'maps') {
             displayGroupName = "🗺️ World Minimaps";
+        } else if (currentCategory === 'npcs') {
+            displayGroupName = "👥 Non-Player Characters";
         } else if (currentCategory === 'armours' || currentCategory === 'costumes') {
             displayGroupName = folderName.replace(/^(M|W|WM)-/i, '').toUpperCase();
         } else if (folderLower.includes('weaponadl') || folderLower.includes('weaponadr')) {

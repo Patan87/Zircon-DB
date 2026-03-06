@@ -1,0 +1,197 @@
+======================================================================
+   EXPORT PACKAGE FOR: Mon-6
+======================================================================
+
+### 1. CLIENT / MonsterObject.cs (Switch Cases) ###
+----------------------------------------------------------------------
+case MonsterImage.Mon6-0:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 0;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-0)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-1:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 1;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-1)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-2:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 2;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-2)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-3:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 3;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-3)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-4:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 4;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-4)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-5:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 5;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-5)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-6:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 6;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-6)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-7:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 7;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-7)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-8:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 8;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-8)
+        Frames[frame.Key] = frame.Value;
+    break;
+case MonsterImage.Mon6-9:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-6, out BodyLibrary);
+    BodyShape = 9;
+    foreach (KeyValuePair<MirAnimation, Frame> frame 
+        in FrameSet.Mon6-9)
+        Frames[frame.Key] = frame.Value;
+    break;
+
+### 2. LIBRARYCORE / Frameset.cs (Definitions & Data) ###
+----------------------------------------------------------------------
+// STEP A: Table of Contents (Insert at the top of the class)
+public static Dictionary<MirAnimation, Frame>
+    Mon6-0, Mon6-1, Mon6-2, Mon6-3, Mon6-4, Mon6-5, Mon6-6, Mon6-7, Mon6-8, Mon6-9;
+
+Mon6-0 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Combat2] = new Frame(640, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-1 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Combat2] = new Frame(400, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-2 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Combat2] = new Frame(400, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-3 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-4 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-5 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-6 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-7 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-8 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Combat2] = new Frame(880, 1, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+
+Mon6-9 = new Dictionary<MirAnimation, Frame>
+{
+    [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
+    [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Pushed] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(50)) { Reversed = true, StaticSpeed = true },
+    [MirAnimation.Combat1] = new Frame(160, 6, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Struck] = new Frame(240, 2, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Die] = new Frame(320, 10, 10, TimeSpan.FromMilliseconds(100)),
+    [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
+};
+

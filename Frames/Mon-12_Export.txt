@@ -4,53 +4,53 @@
 
 ### 1. CLIENT / MonsterObject.cs (Switch Cases) ###
 ----------------------------------------------------------------------
-case MonsterImage.Mon12-0:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.RedMoonGrayProtector:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 0;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-0)
+        in FrameSet.RedMoonGrayProtector)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-1:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.VenomousArachnid:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 1;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-1)
+        in FrameSet.VenomousArachnid)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-2:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.DarkArachnid:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 2;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-2)
+        in FrameSet.DarkArachnid)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-3:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.ForestGuard:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 3;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-3)
+        in FrameSet.ForestGuard)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-4:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.TownGuard:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 4;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-4)
+        in FrameSet.TownGuard)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-5:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.SandGuard:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 5;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-5)
+        in FrameSet.SandGuard)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon12-9:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-12, out BodyLibrary);
+case MonsterImage.Pig:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_12, out BodyLibrary);
     BodyShape = 9;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon12-9)
+        in FrameSet.Pig)
         Frames[frame.Key] = frame.Value;
     break;
 
@@ -58,9 +58,10 @@ case MonsterImage.Mon12-9:
 ----------------------------------------------------------------------
 // STEP A: Table of Contents (Insert at the top of the class)
 public static Dictionary<MirAnimation, Frame>
-    Mon12-0, Mon12-1, Mon12-2, Mon12-3, Mon12-4, Mon12-5, Mon12-9;
+    RedMoonGrayProtector, VenomousArachnid, DarkArachnid, ForestGuard,
+    TownGuard, SandGuard, Pig;
 
-Mon12-0 = new Dictionary<MirAnimation, Frame>
+RedMoonGrayProtector = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -71,7 +72,7 @@ Mon12-0 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-1 = new Dictionary<MirAnimation, Frame>
+VenomousArachnid = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -82,7 +83,7 @@ Mon12-1 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-2 = new Dictionary<MirAnimation, Frame>
+DarkArachnid = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -93,7 +94,7 @@ Mon12-2 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-3 = new Dictionary<MirAnimation, Frame>
+ForestGuard = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 0, 10, TimeSpan.FromMilliseconds(100)),
@@ -104,7 +105,7 @@ Mon12-3 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(319, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-4 = new Dictionary<MirAnimation, Frame>
+TownGuard = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 0, 10, TimeSpan.FromMilliseconds(100)),
@@ -115,7 +116,7 @@ Mon12-4 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(319, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-5 = new Dictionary<MirAnimation, Frame>
+SandGuard = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 0, 10, TimeSpan.FromMilliseconds(100)),
@@ -126,7 +127,7 @@ Mon12-5 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(319, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon12-9 = new Dictionary<MirAnimation, Frame>
+Pig = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),

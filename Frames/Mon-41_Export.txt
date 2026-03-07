@@ -4,67 +4,67 @@
 
 ### 1. CLIENT / MonsterObject.cs (Switch Cases) ###
 ----------------------------------------------------------------------
-case MonsterImage.Mon41-0:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Nameless410:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 0;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-0)
+        in FrameSet.NF_Nameless410)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-1:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.DustDevil:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 1;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-1)
+        in FrameSet.DustDevil)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-2:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.TwinTailScorpion:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 2;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-2)
+        in FrameSet.TwinTailScorpion)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-3:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.BloodyMole:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 3;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-3)
+        in FrameSet.BloodyMole)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-4:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Nameless414:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 4;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-4)
+        in FrameSet.NF_Nameless414)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-5:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Nameless415:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 5;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-5)
+        in FrameSet.NF_Nameless415)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-6:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Nameless416:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 6;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-6)
+        in FrameSet.NF_Nameless416)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-7:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Nameless417:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 7;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-7)
+        in FrameSet.NF_Nameless417)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon41-8:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-41, out BodyLibrary);
+case MonsterImage.NF_Blank418:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_41, out BodyLibrary);
     BodyShape = 8;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon41-8)
+        in FrameSet.NF_Blank418)
         Frames[frame.Key] = frame.Value;
     break;
 
@@ -72,9 +72,11 @@ case MonsterImage.Mon41-8:
 ----------------------------------------------------------------------
 // STEP A: Table of Contents (Insert at the top of the class)
 public static Dictionary<MirAnimation, Frame>
-    Mon41-0, Mon41-1, Mon41-2, Mon41-3, Mon41-4, Mon41-5, Mon41-6, Mon41-7, Mon41-8;
+    NF_Nameless410, DustDevil, TwinTailScorpion, BloodyMole,
+    NF_Nameless414, NF_Nameless415, NF_Nameless416, NF_Nameless417,
+    NF_Blank418;
 
-Mon41-0 = new Dictionary<MirAnimation, Frame>
+NF_Nameless410 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 10, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -86,7 +88,7 @@ Mon41-0 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(322, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-1 = new Dictionary<MirAnimation, Frame>
+DustDevil = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 7, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 7, 10, TimeSpan.FromMilliseconds(100)),
@@ -98,7 +100,7 @@ Mon41-1 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(322, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-2 = new Dictionary<MirAnimation, Frame>
+TwinTailScorpion = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -110,7 +112,7 @@ Mon41-2 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(322, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-3 = new Dictionary<MirAnimation, Frame>
+BloodyMole = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -121,7 +123,7 @@ Mon41-3 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(328, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-4 = new Dictionary<MirAnimation, Frame>
+NF_Nameless414 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -133,7 +135,7 @@ Mon41-4 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(322, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-5 = new Dictionary<MirAnimation, Frame>
+NF_Nameless415 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -144,7 +146,7 @@ Mon41-5 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-6 = new Dictionary<MirAnimation, Frame>
+NF_Nameless416 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -155,7 +157,7 @@ Mon41-6 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-7 = new Dictionary<MirAnimation, Frame>
+NF_Nameless417 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -166,7 +168,7 @@ Mon41-7 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(328, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon41-8 = new Dictionary<MirAnimation, Frame>
+NF_Blank418 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),

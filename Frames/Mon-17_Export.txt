@@ -4,53 +4,53 @@
 
 ### 1. CLIENT / MonsterObject.cs (Switch Cases) ###
 ----------------------------------------------------------------------
-case MonsterImage.Mon17-0:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.StoneGriffin:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 0;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-0)
+        in FrameSet.StoneGriffin)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-1:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.MutantCaptain:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 1;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-1)
+        in FrameSet.MutantCaptain)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-2:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.PinkGoddess:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 2;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-2)
+        in FrameSet.PinkGoddess)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-3:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.GreenGoddess:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 3;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-3)
+        in FrameSet.GreenGoddess)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-4:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.JinchonDevil:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 4;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-4)
+        in FrameSet.JinchonDevil)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-7:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.NF_Catapult177:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 7;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-7)
+        in FrameSet.NF_Catapult177)
         Frames[frame.Key] = frame.Value;
     break;
-case MonsterImage.Mon17-9:
-    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon-17, out BodyLibrary);
+case MonsterImage.NF_Catapult179:
+    CEnvir.LibraryList.TryGetValue(LibraryFile.Mon_17, out BodyLibrary);
     BodyShape = 9;
     foreach (KeyValuePair<MirAnimation, Frame> frame 
-        in FrameSet.Mon17-9)
+        in FrameSet.NF_Catapult179)
         Frames[frame.Key] = frame.Value;
     break;
 
@@ -58,9 +58,10 @@ case MonsterImage.Mon17-9:
 ----------------------------------------------------------------------
 // STEP A: Table of Contents (Insert at the top of the class)
 public static Dictionary<MirAnimation, Frame>
-    Mon17-0, Mon17-1, Mon17-2, Mon17-3, Mon17-4, Mon17-7, Mon17-9;
+    StoneGriffin, MutantCaptain, PinkGoddess, GreenGoddess,
+    JinchonDevil, NF_Catapult177, NF_Catapult179;
 
-Mon17-0 = new Dictionary<MirAnimation, Frame>
+StoneGriffin = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -72,7 +73,7 @@ Mon17-0 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-1 = new Dictionary<MirAnimation, Frame>
+MutantCaptain = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -84,7 +85,7 @@ Mon17-1 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-2 = new Dictionary<MirAnimation, Frame>
+PinkGoddess = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -95,7 +96,7 @@ Mon17-2 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-3 = new Dictionary<MirAnimation, Frame>
+GreenGoddess = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -106,7 +107,7 @@ Mon17-3 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-4 = new Dictionary<MirAnimation, Frame>
+JinchonDevil = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -119,7 +120,7 @@ Mon17-4 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-7 = new Dictionary<MirAnimation, Frame>
+NF_Catapult177 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
@@ -130,7 +131,7 @@ Mon17-7 = new Dictionary<MirAnimation, Frame>
     [MirAnimation.Dead] = new Frame(329, 1, 10, TimeSpan.FromMilliseconds(500)),
 };
 
-Mon17-9 = new Dictionary<MirAnimation, Frame>
+NF_Catapult179 = new Dictionary<MirAnimation, Frame>
 {
     [MirAnimation.Standing] = new Frame(0, 4, 10, TimeSpan.FromMilliseconds(500)),
     [MirAnimation.Walking] = new Frame(80, 6, 10, TimeSpan.FromMilliseconds(100)),
